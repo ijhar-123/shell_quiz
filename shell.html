@@ -1,1 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shell Scripting Quiz</title>
+    <style>
+        body {
+            background-color: #020617;
+            color: #e2e8f0;
+            font-family: monospace;
+            padding: 20px;
+        }
+        h1 {
+            color: #22c55e;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 12px;
+            border-left: 3px solid #22c55e;
+            background: #0f172a;
+        }
+        button {
+            padding: 10px 20px;
+            background: #22c55e;
+            border: none;
+            cursor: pointer;
+            color: black;
+            font-weight: bold;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
 
+<h1>🐧 Shell Scripting Quiz (30 MCQs)</h1>
+
+<form id="quizForm"></form>
+
+<button onclick="submitQuiz()">Submit</button>
+
+<h2 id="result"></h2>
+
+<script>
+const questions = [
+
+{q:"What is shell?",o:["Kernel","Command interpreter","Compiler","File system"],a:1},
+
+{q:"Which is Bourne Again Shell?",o:["sh","bash","csh","ksh"],a:1},
+
+{q:"Environment variable example?",o:["PATH","x=5","a=10","temp"],a:0},
+
+{q:"User-defined variable?",o:["PATH","HOME","x=10","PWD"],a:2},
+
+{q:"Access variable?",o:["$var","var$","@var","#var"],a:0},
+
+{q:"Which file loads at login?",o:[".bashrc",".profile",".txt",".conf"],a:1},
+
+{q:"Positional parameter $1 means?",o:["script name","first argument","PID","user"],a:1},
+
+{q:"$# represents?",o:["PID","arg count","user","script"],a:1},
+
+{q:"Wildcard '*' means?",o:["one char","many chars","digit","none"],a:1},
+
+{q:"Wildcard '?' means?",o:["one char","many","none","digit"],a:0},
+
+{q:"Arithmetic in shell uses?",o:["expr","calc","math","eval"],a:0},
+
+{q:"Command line arguments accessed by?",o:["$1,$2","@1,@2","#1","#"],a:0},
+
+{q:"Which command reads input?",o:["read","echo","input","scan"],a:0},
+
+{q:"echo does?",o:["input","output","delete","loop"],a:1},
+
+{q:"if syntax ends with?",o:["done","fi","end","stop"],a:1},
+
+{q:"Which is decision making?",o:["if","loop","case","all"],a:3},
+
+{q:"Test command used for?",o:["math","condition","loop","print"],a:1},
+
+{q:"Nested if means?",o:["one if","if inside if","loop","none"],a:1},
+
+{q:"case used for?",o:["loop","multiple conditions","math","print"],a:1},
+
+{q:"while loop runs?",o:["fixed","until true","while true","once"],a:2},
+
+{q:"until loop runs?",o:["while true","until true","fixed","none"],a:1},
+
+{q:"for loop used for?",o:["condition","fixed iteration","input","file"],a:1},
+
+{q:"break does?",o:["exit loop","skip","stop","pause"],a:0},
+
+{q:"continue does?",o:["skip iteration","exit","pause","stop"],a:0},
+
+{q:"Metacharacter example?",o:["*","$","?","all"],a:3},
+
+{q:"Command expansion?",o:["`cmd`","$()","both","none"],a:2},
+
+{q:"Directory stack command?",o:["pushd","popd","dirs","all"],a:3},
+
+{q:"Job control command?",o:["jobs","ps","kill","all"],a:3},
+
+{q:"Function defined by?",o:["function f()","def f","func","make"],a:0},
+
+{q:"tput command used for?",o:["file","terminal control","loop","math"],a:1}
+
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((q,i)=>{
+    let div=document.createElement("div");
+    div.classList.add("question");
+
+    div.innerHTML=`<p>${i+1}. ${q.q}</p>`+
+    q.o.map((opt,j)=>
+        `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label><br>`
+    ).join("");
+
+    form.appendChild(div);
+});
+
+function submitQuiz(){
+    let score=0;
+    let wrong=0;
+
+    questions.forEach((q,i)=>{
+        let ans=document.querySelector(`input[name="q${i}"]:checked`);
+        if(ans && parseInt(ans.value)===q.a){
+            score++;
+        } else {
+            wrong++;
+        }
+    });
+
+    document.getElementById("result").innerHTML=
+        `✅ Correct: ${score} <br>
+         ❌ Wrong: ${wrong} <br>
+         📊 Score: ${score} / ${questions.length}`;
+}
+</script>
+
+</body>
+</html>
